@@ -1,4 +1,5 @@
 from functools import partial
+import logging
 from typing import List
 
 import aiohttp
@@ -36,6 +37,10 @@ async def handler(charged_words: List[str],
 
 
 def main():
+    formatter = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    logging.basicConfig(level=logging.INFO,
+                        format=formatter)
+
     charged_words = get_charged_words()
     morph = pymorphy2.MorphAnalyzer()
     handler_wrapper = partial(handler, charged_words, morph)
