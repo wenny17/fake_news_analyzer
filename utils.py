@@ -1,8 +1,9 @@
 from contextlib import asynccontextmanager
+import logging
 import time
-from async_timeout import timeout as async_timeout
 
 import aionursery
+from async_timeout import timeout as async_timeout
 
 
 @asynccontextmanager
@@ -24,7 +25,7 @@ async def timing_manager(timeout=None):
             yield
         finally:
             if cm.expired:
-                print(f'Terminated by timeout: {timeout}')
+                logging.info(f'Terminated by timeout: {timeout}')
             else:
                 time_taken = time.monotonic() - t0
-                print('Анализ закончен за {} сек'.format(time_taken))
+                logging.info('Анализ закончен за {} сек'.format(time_taken))
