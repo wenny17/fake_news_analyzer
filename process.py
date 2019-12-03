@@ -9,7 +9,7 @@ import pymorphy2
 from adapters import ArticleNotFound, AdapterNotImplemented
 from text_tools import (split_by_words,
                         calculate_jaundice_rate,
-                        sanitaze_html)
+                        sanitize_html)
 from utils import timing_manager
 
 
@@ -43,7 +43,7 @@ async def process_article(session: aiohttp.ClientSession,
         async with async_timeout(RESPONSE_TIMEOUT):
             html = await fetch(session, url)
 
-        text = sanitaze_html(html, url)
+        text = sanitize_html(html, url)
 
         async with timing_manager(timeout):
             words = await split_by_words(morph, text)

@@ -81,7 +81,7 @@ def convert_domain_name(url: str) -> str:
     return converted_domain
 
 
-def sanitaze_html(html: str, url: str) -> str:
+def sanitize_html(html: str, url: str) -> str:
     converted_domain = convert_domain_name(url)
     sanitazer = SANITIZERS.get(converted_domain)
     if sanitazer is None:
