@@ -35,9 +35,11 @@ async def split_by_words(morph, text):
 
 async def __test_split_by_words():
     morph = pymorphy2.MorphAnalyzer()
-    assert await split_by_words(morph,'Во-первых, он хочет, чтобы') == ['во-первых', 'хотеть', 'чтобы']
+    assert await split_by_words(morph,
+                                'Во-первых, он хочет, чтобы') == ['во-первых', 'хотеть', 'чтобы']
 
-    assert await split_by_words(morph, '«Удивительно, но это стало началом!»') == ['удивительно', 'это', 'стать', 'начало']
+    assert await split_by_words(morph,
+                                '«Удивительно, но это стало началом!»') == ['удивительно', 'это', 'стать', 'начало']
 
 
 def test_split_by_words():
@@ -64,7 +66,7 @@ def test_calculate_jaundice_rate():
 
 def get_charged_words(path=CHARGED_DICT_DIRECTORY) -> List[str]:
     words = []
-    words_path = os.path.join(os.getcwd(), CHARGED_DICT_DIRECTORY)
+    words_path = os.path.join(os.getcwd(), path)
     for file in os.listdir(words_path):
         if file.endswith('.txt'):
             with open(os.path.join(words_path, file)) as f:
@@ -83,7 +85,7 @@ def convert_domain_name(url: str) -> str:
 
 def sanitize_html(html: str, url: str) -> str:
     converted_domain = convert_domain_name(url)
-    sanitazer = SANITIZERS.get(converted_domain)
-    if sanitazer is None:
+    sanitizer = SANITIZERS.get(converted_domain)
+    if sanitizer is None:
         raise AdapterNotImplemented
-    return sanitazer(html, plaintext=True)
+    return sanitizer(html, plaintext=True)
